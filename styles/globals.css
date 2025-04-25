@@ -1,0 +1,429 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #000000;
+  --foreground: #ffffff;
+  --primary: #00a2ff;
+  --primary-glow: #007bff;
+  --secondary: #0051ff;
+  --accent: #00f2ff;
+  --accent-glow: #00c3ff;
+  --dark-bg: #000000;
+  --dark-surface: #111111;
+  --grid-lines: #0c2a4d;
+  
+  /* Polices */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --font-display: var(--font-orbitron), ui-sans-serif, system-ui;
+
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
+  --neon-blue: 0, 195, 255;
+  --neon-cyan: 0, 225, 255;
+  --neon-purple: 170, 0, 255;
+  --cyber-black: 5, 10, 15;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+/* Animation de texte clignotant pour un effet futuriste */
+@keyframes glow {
+  0% { text-shadow: 0 0 5px var(--primary-glow); }
+  50% { text-shadow: 0 0 20px var(--primary-glow), 0 0 30px var(--accent-glow); }
+  100% { text-shadow: 0 0 5px var(--primary-glow); }
+}
+
+.text-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+/* Effet de scan pour les éléments futuristes */
+@keyframes scanline {
+  0% { background-position: 0 -100vh; }
+  100% { background-position: 0 100vh; }
+}
+
+.futuristic-element {
+  position: relative;
+  overflow: hidden;
+}
+
+.futuristic-element::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent, rgba(0, 162, 255, 0.08), transparent);
+  background-size: 100% 100vh;
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+}
+
+/* Titres futuristes */
+.title-futuristic {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #fff;
+  position: relative;
+  padding-left: 16px;
+  text-shadow: 0 0 10px rgba(var(--neon-blue), 0.7);
+}
+
+.title-futuristic::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 70%;
+  width: 4px;
+  background: var(--primary);
+  box-shadow: 0 0 10px var(--primary-glow);
+}
+
+/* Effet de bordure avec lueur */
+.neon-border {
+  border: 1px solid var(--primary);
+  box-shadow: 0 0 10px var(--primary-glow), inset 0 0 5px var(--primary-glow);
+}
+
+/* Effet de terminal/code futuriste */
+.terminal-text {
+  font-family: monospace;
+  color: var(--primary);
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--primary);
+  box-shadow: 0 0 10px var(--primary-glow), inset 0 0 5px var(--primary-glow);
+  padding: 16px;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animation de clignotement pour curseur de terminal */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor-blink::after {
+  content: "|";
+  animation: blink 1s steps(1) infinite;
+  opacity: 1;
+  margin-left: 2px;
+}
+
+/* Effet de bouton futuriste */
+.button-futuristic {
+  position: relative;
+  background: linear-gradient(45deg, rgba(var(--cyber-black), 0.8), rgba(var(--cyber-black), 0.6));
+  color: rgb(var(--neon-blue));
+  border: 1px solid rgba(var(--neon-blue), 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(var(--neon-blue), 0);
+}
+
+.button-futuristic:hover {
+  border-color: rgba(var(--neon-blue), 0.8);
+  color: white;
+  box-shadow: 0 0 15px rgba(var(--neon-blue), 0.3);
+}
+
+.button-futuristic:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(var(--neon-blue), 0.3) 50%,
+    transparent 100%
+  );
+  transition: left 0.7s ease;
+}
+
+.button-futuristic:hover:before {
+  left: 100%;
+}
+
+/* Holographic effect base */
+.holographic {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: all 0.3s ease;
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+}
+
+.holographic::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    125deg,
+    rgba(var(--neon-blue), 0.3) 0%,
+    rgba(var(--neon-purple), 0.1) 30%,
+    rgba(var(--neon-cyan), 0.2) 60%,
+    rgba(var(--neon-blue), 0.3) 100%
+  );
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.5s ease;
+  filter: blur(8px);
+}
+
+.holographic:hover::before {
+  opacity: 1;
+}
+
+/* Float effect */
+.float-effect {
+  transform: translateZ(20px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.float-effect:hover {
+  transform: translateZ(30px) translateY(-5px);
+  box-shadow: 0 10px 20px -5px rgba(var(--neon-blue), 0.3);
+}
+
+/* Distortion overlay */
+.distortion-overlay {
+  position: relative;
+  overflow: hidden;
+}
+
+.distortion-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(var(--neon-blue), 0.05) 0%,
+    rgba(var(--neon-cyan), 0.05) 100%
+  );
+  backdrop-filter: blur(1px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.distortion-overlay:hover::after {
+  opacity: 1;
+}
+
+/* Hologram projection effect */
+.hologram-projection {
+  position: relative;
+}
+
+.hologram-projection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(var(--neon-blue), 0.1) 0px,
+    rgba(var(--neon-blue), 0.1) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.hologram-projection:hover::before {
+  opacity: 0.8;
+}
+
+/* Teleportation animation */
+@keyframes teleport-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+    filter: blur(10px);
+  }
+  50% {
+    opacity: 0.5;
+    filter: blur(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes teleport-out {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.05);
+    filter: blur(10px);
+  }
+}
+
+.teleport-animation {
+  animation: teleport-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.teleport-out {
+  animation: teleport-out 0.6s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+}
+
+/* Scanner effect */
+@keyframes scanner {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.scanner-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanner-effect::after {
+  content: '';
+  position: absolute;
+  top: -150%;
+  left: -150%;
+  height: 400%;
+  width: 400%;
+  background: linear-gradient(
+    45deg,
+    rgba(var(--neon-blue), 0) 0%,
+    rgba(var(--neon-blue), 0.3) 50%,
+    rgba(var(--neon-blue), 0) 100%
+  );
+  transform: rotate(30deg);
+  animation: scanner 3s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.scanner-effect:hover::after {
+  opacity: 1;
+}
+
+/* Glitch effect */
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-text:hover {
+  animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.glitch-text:hover::before {
+  animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both;
+  text-shadow: -1px 0 rgba(var(--neon-cyan), 0.7);
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  transform: translate(-1px, -1px);
+}
+
+.glitch-text:hover::after {
+  animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  text-shadow: 1px 0 rgba(var(--neon-purple), 0.7);
+  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+  transform: translate(1px, 1px);
+}
+
+/* Custom selection color */
+::selection {
+  background: rgba(var(--neon-blue), 0.3);
+  color: white;
+}
+
+/* Animate background glow */
+.animate-glow {
+  background-size: 200% auto;
+  animation: glow 3s linear infinite;
+}
+
+html {
+  scroll-behavior: smooth;
+}
