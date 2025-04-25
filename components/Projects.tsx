@@ -40,7 +40,6 @@ interface LightboxProps {
 const Lightbox: React.FC<LightboxProps> = ({ screenshots, currentIndex, onClose, onNext, onPrev }) => {
   const { styles } = useTheme();
   const screenshot = screenshots[currentIndex];
-  const hoverSound = useSoundEffect('hover', 0.3);
   const clickSound = useSoundEffect('click', 0.5);
 
   return (
@@ -57,7 +56,7 @@ const Lightbox: React.FC<LightboxProps> = ({ screenshots, currentIndex, onClose,
               className="max-h-[75vh] max-w-full object-contain rounded"
             />
           </div>
-          <p className="text-white text-center mt-4 text-neon-blue font-display">{screenshot.caption}</p>
+          <p className="text-center mt-4 text-neon-blue font-display">{screenshot.caption}</p>
         </div>
         
         {/* Bouton fermer */}
@@ -67,7 +66,6 @@ const Lightbox: React.FC<LightboxProps> = ({ screenshots, currentIndex, onClose,
             clickSound.play();
             onClose();
           }}
-          onMouseEnter={() => hoverSound.play()}
         >
           <X size={24} />
         </button>
@@ -82,7 +80,6 @@ const Lightbox: React.FC<LightboxProps> = ({ screenshots, currentIndex, onClose,
                 clickSound.play();
                 onPrev();
               }}
-              onMouseEnter={() => hoverSound.play()}
             >
               <ChevronLeft size={28} />
             </button>
@@ -94,7 +91,6 @@ const Lightbox: React.FC<LightboxProps> = ({ screenshots, currentIndex, onClose,
                 clickSound.play();
                 onNext();
               }}
-              onMouseEnter={() => hoverSound.play()}
             >
               <ChevronRight size={28} />
             </button>

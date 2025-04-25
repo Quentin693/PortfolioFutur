@@ -31,8 +31,6 @@ const InteractiveBackground: React.FC = () => {
   const [isMouseMoving, setIsMouseMoving] = useState(false);
   const [lastSoundTime, setLastSoundTime] = useState(0);
   
-  // Sons
-  const hoverSound = useSoundEffect('hover', 0.15);
   
   // Configuration des particules
   const particleConfig = useCallback(() => {
@@ -121,36 +119,6 @@ const InteractiveBackground: React.FC = () => {
     
     setParticles(newParticles);
   }, [canvasSize, particleConfig]);
-  
-  // Gestion du mouvement de souris
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (canvasRef.current) {
-        setMousePosition({ x: e.clientX, y: e.clientY });
-        setIsMouseMoving(true);
-        
-        // Jouer un son occasionnel lors du mouvement de la souris
-        // (limité à un son toutes les 800ms pour éviter trop de sons)
-        const now = Date.now();
-        if (now - lastSoundTime > 800) {
-          hoverSound.play();
-          setLastSoundTime(now);
-        }
-        
-        // Réinitialiser l'état après un délai
-        clearTimeout((window as any).mouseTimeout);
-        (window as any).mouseTimeout = setTimeout(() => {
-          setIsMouseMoving(false);
-        }, 2000);
-      }
-    };
-    
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      clearTimeout((window as any).mouseTimeout);
-    };
-  }, [hoverSound, lastSoundTime]);
   
   // Fonction pour connecter les particules entre elles
   const connectParticles = useCallback((particle: Particle, ctx: CanvasRenderingContext2D) => {
