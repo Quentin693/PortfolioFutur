@@ -16,17 +16,13 @@ interface FormData {
 
 const Contact: React.FC = () => {
   const { styles } = useTheme();
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-  
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [submitStatus, setSubmitStatus] = useState<{success?: boolean; message?: string} | null>(null);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
   const [isVisible, setIsVisible] = useState(false);
-  const { playHover, playHoverButton, playClick, playModal } = useSounds();
+  const { playHover, playModal } = useSounds();
 
   useEffect(() => {
     setIsVisible(true);
@@ -34,17 +30,16 @@ const Contact: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setName(value);
+    setEmail(value);
+    setMessage(value);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     playModal(); // Jouer un son lors de la soumission
-    setIsSubmitting(true);
-    setSubmitStatus(null);
+    setSubmitted(true);
+    setError('');
     
     // Simuler un envoi de formulaire
     try {
@@ -52,25 +47,16 @@ const Contact: React.FC = () => {
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       // Simulation d'une réponse réussie
-      setSubmitStatus({
-        success: true,
-        message: "Votre message a été envoyé avec succès!"
-      });
+      setError("Votre message a été envoyé avec succès!");
       
       // Réinitialiser le formulaire après un envoi réussi
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      });
+      setName('');
+      setEmail('');
+      setMessage('');
     } catch {
-      setSubmitStatus({
-        success: false,
-        message: "Une erreur s'est produite lors de l'envoi du message."
-      });
+      setError("Une erreur s'est produite lors de l'envoi du message.");
     } finally {
-      setIsSubmitting(false);
+      setSubmitted(false);
     }
   };
 
@@ -191,7 +177,7 @@ const Contact: React.FC = () => {
                     type="text" 
                     id="name"
                     name="name"
-                    value={formData.name}
+                    value={name}
                     onChange={handleChange}
                     onClick={(e) => e.stopPropagation()}
                     onFocus={playHover}
@@ -209,7 +195,7 @@ const Contact: React.FC = () => {
                     type="email" 
                     id="email"
                     name="email"
-                    value={formData.email}
+                    value={email}
                     onChange={handleChange}
                     onClick={(e) => e.stopPropagation()}
                     onFocus={playHover}
@@ -221,30 +207,13 @@ const Contact: React.FC = () => {
               </div>
               
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium mb-1 ml-1 text-gray-300">
-                  Sujet
-                </label>
-                <input 
-                  type="text" 
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  onClick={(e) => e.stopPropagation()}
-                  onFocus={playHover}
-                  className="w-full px-4 py-3 bg-black/30 border border-neon-blue/30 rounded-lg focus:outline-none focus:border-neon-blue focus:shadow-neon-blue transition-all cursor-text relative z-10 text-white placeholder-gray-500" 
-                  required
-                />
-              </div>
-              
-              <div>
                 <label htmlFor="message" className="block text-sm font-medium mb-1 ml-1 text-gray-300">
                   Message
                 </label>
                 <textarea 
                   id="message"
                   name="message"
-                  value={formData.message}
+                  value={message}
                   onChange={handleChange}
                   onClick={(e) => e.stopPropagation()}
                   onFocus={playHover}
@@ -255,18 +224,18 @@ const Contact: React.FC = () => {
               </div>
               
               <div className="flex items-center justify-between">
-                {submitStatus && (
-                  <div className={`text-sm ${submitStatus.success ? 'text-green-400' : 'text-red-400'}`}>
-                    {submitStatus.message}
+                {error && (
+                  <div className={`text-sm ${error.includes("succès") ? 'text-green-400' : 'text-red-400'}`}>
+                    {error}
                   </div>
                 )}
                 
                 <SoundButton
                   type="submit"
-                  disabled={isSubmitting}
-                  className={`px-6 py-3 bg-neon-blue/20 hover:bg-neon-blue/30 border border-neon-blue/50 text-neon-blue rounded-lg font-display font-medium transition-all shadow-inner hover:shadow-neon-blue ml-auto ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''} relative overflow-hidden group scanner-effect`}
+                  disabled={submitted}
+                  className={`px-6 py-3 bg-neon-blue/20 hover:bg-neon-blue/30 border border-neon-blue/50 text-neon-blue rounded-lg font-display font-medium transition-all shadow-inner hover:shadow-neon-blue ml-auto ${submitted ? 'opacity-70 cursor-not-allowed' : ''} relative overflow-hidden group scanner-effect`}
                 >
-                  {isSubmitting ? (
+                  {submitted ? (
                     <div className="flex items-center">
                       <div className="w-5 h-5 border-t-2 border-r-2 border-neon-blue rounded-full animate-spin mr-2" />
                       <span>Envoi...</span>

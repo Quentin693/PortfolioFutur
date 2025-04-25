@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { useSoundEffect } from './SoundEffect';
 
 interface Particle {
   x: number;
@@ -27,9 +26,8 @@ const InteractiveBackground: React.FC = () => {
     height: typeof window !== 'undefined' ? window.innerHeight : 800
   });
   const [isMobile, setIsMobile] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const mousePosition = { x: 0, y: 0 };
   const [isMouseMoving, setIsMouseMoving] = useState(false);
-  const [lastSoundTime, setLastSoundTime] = useState(0);
   
   
   // Configuration des particules
@@ -244,7 +242,7 @@ const InteractiveBackground: React.FC = () => {
         ctx.stroke();
       }
     }
-  }, [canvasSize, mousePosition, isMouseMoving, isMobile]);
+  }, [mousePosition, isMouseMoving, isMobile]);
   
   // Initialisation et gestion du redimensionnement
   useEffect(() => {

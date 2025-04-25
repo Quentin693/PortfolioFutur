@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState, useCallback, useEffect } from 'react';
-import { Github, ExternalLink, X, Code, LayoutDashboard, Layers, ChevronLeft, ChevronRight, Eye } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X, Eye, Code, Layers, LayoutDashboard } from 'lucide-react';
 import Image from 'next/image';
 import { useTheme } from './ThemeProvider';
 import { useSoundEffect } from './SoundEffect';
+import BackButton from './BackButton';
 
 interface Project {
   id: number;
@@ -326,7 +327,7 @@ const projects: Project[] = [
       "Authentification des utilisateurs avec JWT",
       "Gestion de réservation en ligne",
       "Interface de connexion",
-      "Interface d'administration complète"
+      "Interface d&apos;administration complète"
     ],
     technologies: [
       "Frontend: Next.js, Tailwind CSS",

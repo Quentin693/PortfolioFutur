@@ -29,7 +29,7 @@ const About: React.FC = () => {
   const [animating, setAnimating] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const { playHover, playHoverButton, playClick, playModal } = useSounds();
+  const { playHover, playClick, playModal } = useSounds();
 
   useEffect(() => {
     setIsVisible(true);
