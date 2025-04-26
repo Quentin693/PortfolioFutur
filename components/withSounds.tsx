@@ -2,8 +2,6 @@ import React, { ComponentType } from 'react';
 import useSounds, { Sounds } from '../hooks/useSounds';
 
 interface WithSoundsProps {
-  hoverVolume?: number;
-  hoverButtonVolume?: number;
   clickVolume?: number;
   modalVolume?: number;
 }
@@ -17,13 +15,11 @@ export function withSounds<P extends object>(
   WrappedComponent: ComponentType<P & { sounds?: Sounds }>
 ) {
   return function WithSounds({ 
-    hoverVolume = 0.3,
-    hoverButtonVolume = 0.3,
     clickVolume = 0.5, 
     modalVolume = 0.4,
     ...props
   }: P & WithSoundsProps) {
-    const sounds = useSounds(hoverVolume, hoverButtonVolume, clickVolume, modalVolume);
+    const sounds = useSounds(clickVolume, modalVolume);
     
     return <WrappedComponent {...props as P} sounds={sounds} />;
   };

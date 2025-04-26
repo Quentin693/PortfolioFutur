@@ -1,8 +1,6 @@
 import { useSoundEffect } from '../components/SoundEffect';
 
 export interface Sounds {
-  playHover: () => void;
-  playHoverButton: () => void;
   playClick: () => void;
   playModal: () => void;
 }
@@ -21,14 +19,10 @@ export const useSounds = (
   clickVolume: number = 0.5, 
   modalVolume: number = 0.4
 ): Sounds => {
-  const hoverSound = useSoundEffect('hover', hoverVolume);
-  const hoverButtonSound = useSoundEffect('hoverbutton', hoverButtonVolume);
   const clickSound = useSoundEffect('click', clickVolume);
   const modalSound = useSoundEffect('modal', modalVolume);
 
   return {
-    playHover: () => hoverSound.play(),
-    playHoverButton: () => hoverButtonSound.play(),
     playClick: () => clickSound.play(),
     playModal: () => modalSound.play()
   };
