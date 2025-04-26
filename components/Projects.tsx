@@ -288,7 +288,7 @@ const ProjectSlider: React.FC<{
             </div>
           ) : (
             <div className="bg-black/20 rounded-lg border border-neon-blue/10 p-4 flex items-center justify-center h-[100px]">
-              <p className="text-gray-400 italic text-base">Aucune capture d'écran disponible</p>
+              <p className="text-gray-400 italic text-base">Aucune capture d&apos;écran disponible</p>
             </div>
           )}
         </div>
