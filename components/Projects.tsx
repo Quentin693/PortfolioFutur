@@ -44,56 +44,59 @@ const Lightbox: React.FC<LightboxProps> = ({ screenshots, currentIndex, onClose,
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 backdrop-blur-md" onClick={onClose}>
-      <div className="relative w-full h-full flex items-center justify-center p-4" onClick={(e) => e.stopPropagation()}>
+      <div className="relative w-full h-full flex items-center justify-center p-2 md:p-4" onClick={(e) => e.stopPropagation()}>
         {/* Image courante */}
-        <div className="relative max-w-6xl max-h-[90vh] w-full flex flex-col items-center">
-          <div className={`${styles.futuristicElement} p-2 border-2 border-neon-blue/50 shadow-lg shadow-neon-blue/30 rounded-lg bg-black/70 overflow-hidden`}>
+        <div className="relative max-w-full md:max-w-6xl max-h-[80vh] md:max-h-[90vh] w-full flex flex-col items-center">
+          <div className={`${styles.futuristicElement} p-1 md:p-2 border border-neon-blue/50 md:border-2 shadow-md md:shadow-lg shadow-neon-blue/30 rounded-lg bg-black/70 overflow-hidden`}>
             <Image 
               src={screenshot.url} 
               alt={screenshot.caption} 
               width={1200}
               height={900}
-              className="max-h-[80vh] max-w-full object-contain rounded-lg"
+              className="max-h-[60vh] md:max-h-[80vh] max-w-full object-contain rounded-lg"
               priority
             />
           </div>
-          <p className="text-center mt-4 text-neon-blue font-display text-lg">{screenshot.caption}</p>
+          <p className="text-center mt-2 md:mt-4 text-neon-blue font-display text-sm md:text-lg truncate max-w-full px-4">{screenshot.caption}</p>
         </div>
         
         {/* Bouton fermer */}
         <button 
-          className="absolute top-4 right-4 bg-black/50 hover:bg-neon-blue/20 text-white p-3 rounded-full transition-colors z-[70] border border-neon-blue/30"
+          className="absolute top-2 right-2 md:top-4 md:right-4 bg-black/50 hover:bg-neon-blue/20 text-white p-2 md:p-3 rounded-full transition-colors z-[70] border border-neon-blue/30"
           onClick={() => {
             clickSound.play();
             onClose();
           }}
         >
-          <X size={24} />
+          <X size={18} className="md:hidden" />
+          <X size={24} className="hidden md:block" />
         </button>
         
         {/* Navigation */}
         {screenshots.length > 1 && (
           <>
             <button 
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-neon-blue/20 text-white p-3 rounded-full transition-colors border border-neon-blue/30"
+              className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-neon-blue/20 text-white p-2 md:p-3 rounded-full transition-colors border border-neon-blue/30"
               onClick={(e) => {
                 e.stopPropagation();
                 clickSound.play();
                 onPrev();
               }}
             >
-              <ChevronLeft size={28} />
+              <ChevronLeft size={20} className="md:hidden" />
+              <ChevronLeft size={28} className="hidden md:block" />
             </button>
             
             <button 
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-neon-blue/20 text-white p-3 rounded-full transition-colors border border-neon-blue/30"
+              className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-neon-blue/20 text-white p-2 md:p-3 rounded-full transition-colors border border-neon-blue/30"
               onClick={(e) => {
                 e.stopPropagation();
                 clickSound.play();
                 onNext();
               }}
             >
-              <ChevronRight size={28} />
+              <ChevronRight size={20} className="md:hidden" />
+              <ChevronRight size={28} className="hidden md:block" />
             </button>
             
             {/* Indicateur de position */}
@@ -127,15 +130,15 @@ const ProjectSlider: React.FC<{
   const clickSound = useSoundEffect('click', 0.5);
   
   return (
-    <div className={`${styles.glassPanel} w-[1000px] h-[700px] overflow-hidden rounded-lg border border-neon-blue/40 shadow-neon-blue transition-all duration-500 ${styles.futuristicElement} flex flex-col holographic`}>
+    <div className={`${styles.glassPanel} w-full md:w-[900px] lg:w-[1000px] h-[90vh] md:h-[700px] overflow-hidden rounded-lg border border-neon-blue/40 shadow-neon-blue transition-all duration-500 ${styles.futuristicElement} flex flex-col holographic`}>
       {/* En-tête avec titre et boutons de navigation */}
-      <div className="flex justify-between items-center border-b border-neon-blue/20 p-5">
-        <h3 className="text-2xl font-display font-semibold text-neon-blue glitch-text" data-text={project.title}>
+      <div className="flex justify-between items-center border-b border-neon-blue/20 p-3 md:p-5">
+        <h3 className="text-lg md:text-2xl font-display font-semibold text-neon-blue glitch-text truncate" data-text={project.title}>
           {project.title}
         </h3>
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 md:space-x-3">
           <button 
-            className={`p-2.5 rounded-full border border-neon-blue/20 transition-colors ${isFirst ? 'text-gray-500 cursor-not-allowed' : 'text-neon-blue hover:bg-neon-blue/10 scanner-effect'}`}
+            className={`p-2 md:p-2.5 rounded-full border border-neon-blue/20 transition-colors ${isFirst ? 'text-gray-500 cursor-not-allowed' : 'text-neon-blue hover:bg-neon-blue/10 scanner-effect'}`}
             onClick={() => {
               if (!isFirst) {
                 clickSound.play();
@@ -144,10 +147,11 @@ const ProjectSlider: React.FC<{
             }}
             disabled={isFirst}
           >
-            <ChevronLeft size={18} />
+            <ChevronLeft size={16} className="md:hidden" />
+            <ChevronLeft size={18} className="hidden md:block" />
           </button>
           <button 
-            className={`p-2.5 rounded-full border border-neon-blue/20 transition-colors ${isLast ? 'text-gray-500 cursor-not-allowed' : 'text-neon-blue hover:bg-neon-blue/10 scanner-effect'}`}
+            className={`p-2 md:p-2.5 rounded-full border border-neon-blue/20 transition-colors ${isLast ? 'text-gray-500 cursor-not-allowed' : 'text-neon-blue hover:bg-neon-blue/10 scanner-effect'}`}
             onClick={() => {
               if (!isLast) {
                 clickSound.play();
@@ -156,29 +160,31 @@ const ProjectSlider: React.FC<{
             }}
             disabled={isLast}
           >
-            <ChevronRight size={18} />
+            <ChevronRight size={16} className="md:hidden" />
+            <ChevronRight size={18} className="hidden md:block" />
           </button>
           <button 
-            className="p-2.5 rounded-full border border-neon-blue/20 text-neon-blue hover:bg-neon-blue/10 transition-colors ml-2 scanner-effect"
+            className="p-2 md:p-2.5 rounded-full border border-neon-blue/20 text-neon-blue hover:bg-neon-blue/10 transition-colors ml-2 scanner-effect"
             onClick={() => {
               clickSound.play();
               onClose();
             }}
           >
-            <X size={18} />
+            <X size={16} className="md:hidden" />
+            <X size={18} className="hidden md:block" />
           </button>
         </div>
       </div>
       
       <div className="flex-1 overflow-y-auto">
         {/* Image principale avec hauteur fixe */}
-        <div className="relative h-80 w-full bg-black hologram-projection">
+        <div className="relative h-48 sm:h-64 md:h-80 w-full bg-black hologram-projection">
           {project.imageUrl ? (
             <Image
               src={project.imageUrl}
               alt={project.title}
               fill
-              sizes="1000px"
+              sizes="(max-width: 640px) 95vw, (max-width: 1024px) 900px, 1000px"
               className="object-contain w-full h-full"
               priority
             />
@@ -191,11 +197,11 @@ const ProjectSlider: React.FC<{
         </div>
         
         {/* Tags et badges de technologie */}
-        <div className="px-8 py-4 -mt-8 relative z-10 flex flex-wrap gap-3">
+        <div className="px-4 md:px-8 py-3 -mt-4 md:-mt-8 relative z-10 flex flex-wrap gap-1.5 md:gap-3">
           {project.tags.map((tag) => (
             <span 
               key={tag} 
-              className="text-sm py-1.5 px-3 rounded-md bg-neon-blue/10 text-neon-blue border border-neon-blue/30 font-display float-effect"
+              className="text-xs md:text-sm py-1 px-2 md:py-1.5 md:px-3 rounded-md bg-neon-blue/10 text-neon-blue border border-neon-blue/30 font-display float-effect"
             >
               {tag}
             </span>
@@ -203,66 +209,69 @@ const ProjectSlider: React.FC<{
         </div>
         
         {/* Description longue avec hauteur fixe */}
-        <div className="px-8 py-3">
-          <div className="bg-black/50 p-5 rounded-lg border border-neon-blue/10 backdrop-blur-sm mb-6 h-[90px] overflow-y-auto distortion-overlay">
-            <p className="text-gray-200 text-base">
+        <div className="px-4 md:px-8 py-2 md:py-3">
+          <div className="bg-black/50 p-3 md:p-5 rounded-lg border border-neon-blue/10 backdrop-blur-sm mb-3 md:mb-6 h-[70px] md:h-[90px] overflow-y-auto distortion-overlay">
+            <p className="text-gray-200 text-sm md:text-base">
               {project.longDescription || project.description}
             </p>
           </div>
         </div>
         
         {/* Fonctionnalités et Technologies côte à côte */}
-        <div className="grid grid-cols-2 gap-6 px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 px-4 md:px-8">
           {/* Fonctionnalités */}
-          <div className="bg-black/30 p-5 rounded-lg border border-neon-blue/20 h-[220px] overflow-y-auto distortion-overlay">
-            <h4 className="text-neon-blue font-display text-sm uppercase tracking-wider mb-4 flex items-center">
-              <Layers size={16} className="mr-2" />
+          <div className="bg-black/30 p-4 md:p-5 rounded-lg border border-neon-blue/20 h-[150px] md:h-[220px] overflow-y-auto distortion-overlay">
+            <h4 className="text-neon-blue font-display text-xs md:text-sm uppercase tracking-wider mb-3 md:mb-4 flex items-center">
+              <Layers size={14} className="mr-2 md:hidden" />
+              <Layers size={16} className="mr-2 hidden md:block" />
               Fonctionnalités
             </h4>
             {project.features && project.features.length > 0 ? (
-              <ul className="space-y-2">
+              <ul className="space-y-1 md:space-y-2">
                 {project.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-start text-base">
+                  <li key={idx} className="flex items-start text-sm md:text-base">
                     <span className="text-neon-blue mr-2">•</span>
                     <span className="text-gray-300">{feature}</span>
                   </li>
                 ))}
               </ul>
             ) : (
-              <p className="text-gray-400 italic text-base">Aucune fonctionnalité spécifiée</p>
+              <p className="text-gray-400 italic text-sm md:text-base">Aucune fonctionnalité spécifiée</p>
             )}
           </div>
           
           {/* Technologies */}
-          <div className="bg-black/30 p-5 rounded-lg border border-neon-blue/20 h-[220px] overflow-y-auto distortion-overlay">
-            <h4 className="text-neon-blue font-display text-sm uppercase tracking-wider mb-4 flex items-center">
-              <Code size={16} className="mr-2" />
+          <div className="bg-black/30 p-4 md:p-5 rounded-lg border border-neon-blue/20 h-[150px] md:h-[220px] overflow-y-auto distortion-overlay">
+            <h4 className="text-neon-blue font-display text-xs md:text-sm uppercase tracking-wider mb-3 md:mb-4 flex items-center">
+              <Code size={14} className="mr-2 md:hidden" />
+              <Code size={16} className="mr-2 hidden md:block" />
               Technologies
             </h4>
             {project.technologies && project.technologies.length > 0 ? (
-              <ul className="space-y-2">
+              <ul className="space-y-1 md:space-y-2">
                 {project.technologies.map((tech, idx) => (
-                  <li key={idx} className="flex items-start text-base">
+                  <li key={idx} className="flex items-start text-sm md:text-base">
                     <span className="text-neon-blue mr-2">•</span>
                     <span className="text-gray-300">{tech}</span>
                   </li>
                 ))}
               </ul>
             ) : (
-              <p className="text-gray-400 italic text-base">Aucune technologie spécifiée</p>
+              <p className="text-gray-400 italic text-sm md:text-base">Aucune technologie spécifiée</p>
             )}
           </div>
         </div>
         
         {/* Galerie de captures d'écran */}
-        <div className="px-8 py-6">
+        <div className="px-4 md:px-8 py-4 md:py-6">
           {project.screenshots && project.screenshots.length > 0 ? (
             <div>
-              <h4 className="text-neon-blue font-display text-sm uppercase tracking-wider mb-4 flex items-center">
-                <LayoutDashboard size={16} className="mr-2" />
+              <h4 className="text-neon-blue font-display text-xs md:text-sm uppercase tracking-wider mb-3 md:mb-4 flex items-center">
+                <LayoutDashboard size={14} className="mr-2 md:hidden" />
+                <LayoutDashboard size={16} className="mr-2 hidden md:block" />
                 Captures d&apos;écran
               </h4>
-              <div className="grid grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4">
                 {project.screenshots.map((screenshot, idx) => (
                   <div 
                     key={idx} 
@@ -277,12 +286,13 @@ const ProjectSlider: React.FC<{
                         src={screenshot.url}
                         alt={screenshot.caption}
                         fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        sizes="(max-width: 640px) 45vw, (max-width: 1024px) 20vw, 15vw"
                         className="object-contain opacity-90 group-hover:opacity-100 transition-opacity p-1"
                       />
                     </div>
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 scanner-effect">
-                      <Eye size={20} className="text-white" />
+                      <Eye size={16} className="text-white md:hidden" />
+                      <Eye size={20} className="text-white hidden md:block" />
                     </div>
                   </div>
                 ))}
@@ -297,14 +307,14 @@ const ProjectSlider: React.FC<{
       </div>
       
       {/* Barre de progression et pagination */}
-      <div className="px-8 py-4 border-t border-neon-blue/20 flex items-center space-x-3 mt-auto">
-        <div className="flex-1 bg-black/50 h-1.5 rounded-full overflow-hidden scanner-effect">
+      <div className="px-4 md:px-8 py-3 md:py-4 border-t border-neon-blue/20 flex items-center space-x-2 md:space-x-3 mt-auto">
+        <div className="flex-1 bg-black/50 h-1 md:h-1.5 rounded-full overflow-hidden scanner-effect">
           <div 
             className="h-full bg-gradient-to-r from-neon-blue to-neon-cyan rounded-full"
             style={{ width: `${(project.id / (projects.length)) * 100}%` }}
           ></div>
         </div>
-        <div className="text-sm text-neon-blue font-display">
+        <div className="text-xs md:text-sm text-neon-blue font-display">
           {project.id}/{projects.length}
         </div>
       </div>
@@ -546,7 +556,7 @@ const Projects: React.FC = () => {
 <h2 className="title-futuristic text-4xl font-bold mb-4 text-center bg-clip-text text-transparent bg-gradient-to-r from-neon-blue via-neon-cyan to-neon-blue animate-glow">PROJETS</h2>
       <p className="text-gray-300 text-center mb-16">Découvrez une sélection de mes projets récents</p>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
         {projects.map((project, index) => (
           <div 
             key={project.id}
@@ -556,12 +566,12 @@ const Projects: React.FC = () => {
           >
             {/* Image de couverture du projet */}
             {project.imageUrl ? (
-              <div className="relative h-60 overflow-hidden hologram-projection">
+              <div className="relative h-48 sm:h-52 md:h-60 overflow-hidden hologram-projection">
                 <Image
                   src={project.imageUrl}
                   alt={project.title}
                   fill
-                  sizes="(max-width: 768px) 100vw, 400px"
+                  sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
                   className="object-contain transform transition-transform duration-500 group-hover:scale-110"
                   priority
                 />
@@ -569,26 +579,27 @@ const Projects: React.FC = () => {
                 
                 {/* Overlay au survol */}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center scanner-effect">
-                  <div className="h-12 w-12 rounded-full flex items-center justify-center border border-neon-blue bg-black/60 text-neon-blue">
-                    <Eye size={20} />
+                  <div className="h-10 w-10 md:h-12 md:w-12 rounded-full flex items-center justify-center border border-neon-blue bg-black/60 text-neon-blue">
+                    <Eye size={16} className="md:hidden" />
+                    <Eye size={20} className="hidden md:block" />
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="h-60 bg-gradient-to-br from-neon-blue/20 to-neon-cyan/20"></div>
+              <div className="h-48 sm:h-52 md:h-60 bg-gradient-to-br from-neon-blue/20 to-neon-cyan/20"></div>
             )}
             
             {/* Contenu */}
-            <div className="p-5">
-              <h3 className="text-lg font-display font-semibold mb-2 text-neon-blue glitch-text" data-text={project.title}>{project.title}</h3>
-              <p className="text-gray-300 text-sm mb-4 line-clamp-2 distortion-overlay">{project.description}</p>
+            <div className="p-3 md:p-5">
+              <h3 className="text-base md:text-lg font-display font-semibold mb-1 md:mb-2 text-neon-blue glitch-text truncate" data-text={project.title}>{project.title}</h3>
+              <p className="text-gray-300 text-xs md:text-sm mb-2 md:mb-4 line-clamp-2 distortion-overlay">{project.description}</p>
               
               {/* Tags */}
-              <div className="flex flex-wrap gap-2 mb-4">
+              <div className="flex flex-wrap gap-1 md:gap-2 mb-2 md:mb-4">
                 {project.tags.map((tag) => (
                   <span 
                     key={tag} 
-                    className="text-xs py-1 px-2 rounded-md bg-neon-blue/10 text-neon-blue border border-neon-blue/30 font-display float-effect"
+                    className="text-xs py-0.5 px-1.5 md:py-1 md:px-2 rounded-md bg-neon-blue/10 text-neon-blue border border-neon-blue/30 font-display float-effect"
                   >
                     {tag}
                   </span>
@@ -597,9 +608,10 @@ const Projects: React.FC = () => {
               
               {/* Bouton voir plus */}
               <div className="flex justify-end">
-                <button className="text-neon-blue text-sm font-display group-hover:underline flex items-center focus:outline-none scanner-effect">
+                <button className="text-neon-blue text-xs md:text-sm font-display group-hover:underline flex items-center focus:outline-none scanner-effect">
                   Voir détails 
-                  <ChevronRight size={16} className="ml-1 group-hover:ml-2 transition-all" />
+                  <ChevronRight size={12} className="ml-1 group-hover:ml-2 transition-all md:hidden" />
+                  <ChevronRight size={16} className="ml-1 group-hover:ml-2 transition-all hidden md:block" />
                 </button>
               </div>
             </div>

@@ -152,17 +152,17 @@ const About: React.FC = () => {
       ],
       images: [
         {
-          src: "/ProjetTiki.png",
+          src: "/Tiki.png",
           alt: "Projet Tiki",
           caption: "Un des projets développés chez Reactime"
         },
         {
-          src: "/ProjetTiki1.png",
+          src: "/Tiki1.png",
           alt: "Réservation en ligne",
           caption: "Interface de réservation en ligne"
         },
         {
-          src: "/ProjetTiki2.png",
+          src: "/Tiki2.png",
           alt: "Interface de connexion",
           caption: "Interface de connexion à l'application"
         }
