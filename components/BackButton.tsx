@@ -10,7 +10,6 @@ interface BackButtonProps {
 }
 
 const BackButton: React.FC<BackButtonProps> = ({ onClick, className = '' }) => {
-  const hoverSound = useSoundEffect('hover', 0.3);
   const clickSound = useSoundEffect('click', 0.5);
   
   const handleClick = () => {
@@ -21,7 +20,6 @@ const BackButton: React.FC<BackButtonProps> = ({ onClick, className = '' }) => {
   return (
     <button 
       onClick={handleClick}
-      onMouseEnter={() => hoverSound.play()}
       className={`flex items-center justify-center p-2 rounded-full bg-red-800/80 hover:bg-red-700 transition-colors ${className}`}
       aria-label="Retour"
     >
