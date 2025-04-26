@@ -581,7 +581,7 @@ const EnhancedPortfolio = () => {
       
       {/* Footer */}
       <footer className="relative z-10 py-4 text-center text-sm text-gray-400 backdrop-blur-sm bg-gray-900/50">
-        <p>Made with 💙 by Quentin Cialone</p>
+        <p>Made with fun & 💙 by Quentin Cialone</p>
       </footer>
       
       {/* CSS personnalisé */}

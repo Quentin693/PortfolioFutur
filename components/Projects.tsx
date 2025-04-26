@@ -46,17 +46,18 @@ const Lightbox: React.FC<LightboxProps> = ({ screenshots, currentIndex, onClose,
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 backdrop-blur-md" onClick={onClose}>
       <div className="relative w-full h-full flex items-center justify-center p-4" onClick={(e) => e.stopPropagation()}>
         {/* Image courante */}
-        <div className="relative max-w-5xl max-h-[85vh] w-full flex flex-col items-center">
-          <div className={`${styles.futuristicElement} p-1 border border-neon-blue/30 shadow-neon-blue rounded-lg bg-black/30 overflow-hidden`}>
+        <div className="relative max-w-6xl max-h-[90vh] w-full flex flex-col items-center">
+          <div className={`${styles.futuristicElement} p-2 border-2 border-neon-blue/50 shadow-lg shadow-neon-blue/30 rounded-lg bg-black/70 overflow-hidden`}>
             <Image 
               src={screenshot.url} 
               alt={screenshot.caption} 
-              width={800}
-              height={500}
-              className="max-h-[75vh] max-w-full object-contain rounded"
+              width={1200}
+              height={900}
+              className="max-h-[80vh] max-w-full object-contain rounded-lg"
+              priority
             />
           </div>
-          <p className="text-center mt-4 text-neon-blue font-display">{screenshot.caption}</p>
+          <p className="text-center mt-4 text-neon-blue font-display text-lg">{screenshot.caption}</p>
         </div>
         
         {/* Bouton fermer */}
@@ -171,21 +172,22 @@ const ProjectSlider: React.FC<{
       
       <div className="flex-1 overflow-y-auto">
         {/* Image principale avec hauteur fixe */}
-        <div className="relative h-60 w-full bg-black hologram-projection">
+        <div className="relative h-80 w-full bg-black hologram-projection">
           {project.imageUrl ? (
             <Image
               src={project.imageUrl}
               alt={project.title}
               fill
               sizes="1000px"
-              className="object-cover w-full"
+              className="object-contain w-full h-full"
+              priority
             />
           ) : (
             <div className="h-full w-full bg-gradient-to-r from-neon-blue/20 to-neon-cyan/20 flex items-center justify-center">
               <span className="text-neon-blue opacity-50 font-display">Aucune image</span>
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-70"></div>
         </div>
         
         {/* Tags et badges de technologie */}
@@ -276,10 +278,10 @@ const ProjectSlider: React.FC<{
                         alt={screenshot.caption}
                         fill
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                        className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                        className="object-contain opacity-90 group-hover:opacity-100 transition-opacity p-1"
                       />
                     </div>
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/50 scanner-effect">
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 scanner-effect">
                       <Eye size={20} className="text-white" />
                     </div>
                   </div>
@@ -541,9 +543,7 @@ const Projects: React.FC = () => {
 
   return (
     <div className={`max-w-6xl mx-auto px-4 py-16 ${isVisible ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000`}>
-      <h2 className="title-futuristic text-4xl font-bold mb-4 text-center bg-clip-text text-transparent bg-gradient-to-r from-neon-blue via-neon-cyan to-neon-blue animate-glow glitch-text" data-text="PROJETS">
-        PROJETS
-      </h2>
+<h2 className="title-futuristic text-4xl font-bold mb-4 text-center bg-clip-text text-transparent bg-gradient-to-r from-neon-blue via-neon-cyan to-neon-blue animate-glow">PROJETS</h2>
       <p className="text-gray-300 text-center mb-16">Découvrez une sélection de mes projets récents</p>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -556,25 +556,26 @@ const Projects: React.FC = () => {
           >
             {/* Image de couverture du projet */}
             {project.imageUrl ? (
-              <div className="relative h-48 overflow-hidden hologram-projection">
+              <div className="relative h-60 overflow-hidden hologram-projection">
                 <Image
                   src={project.imageUrl}
                   alt={project.title}
                   fill
                   sizes="(max-width: 768px) 100vw, 400px"
-                  className="object-cover transform transition-transform duration-500 group-hover:scale-110"
+                  className="object-contain transform transition-transform duration-500 group-hover:scale-110"
+                  priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-cyber-black to-transparent opacity-60"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-cyber-black to-transparent opacity-40"></div>
                 
                 {/* Overlay au survol */}
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center scanner-effect">
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center scanner-effect">
                   <div className="h-12 w-12 rounded-full flex items-center justify-center border border-neon-blue bg-black/60 text-neon-blue">
                     <Eye size={20} />
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="h-48 bg-gradient-to-br from-neon-blue/20 to-neon-cyan/20"></div>
+              <div className="h-60 bg-gradient-to-br from-neon-blue/20 to-neon-cyan/20"></div>
             )}
             
             {/* Contenu */}
