@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { useTheme } from './ThemeProvider';
 import { useSoundEffect } from './SoundEffect';
 
 // Component permettant de faire une transition entre les pages

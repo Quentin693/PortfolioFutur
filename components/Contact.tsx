@@ -7,13 +7,6 @@ import { useSounds } from '../hooks/useSounds';
 import SoundButton from './SoundButton';
 import SoundLink from './SoundLink';
 
-interface FormData {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-}
-
 const Contact: React.FC = () => {
   const { styles } = useTheme();
   const [name, setName] = useState('');
@@ -29,10 +22,15 @@ const Contact: React.FC = () => {
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setName(value);
-    setEmail(value);
-    setMessage(value);
+    const { name: fieldName, value } = e.target;
+    
+    if (fieldName === 'name') {
+      setName(value);
+    } else if (fieldName === 'email') {
+      setEmail(value);
+    } else if (fieldName === 'message') {
+      setMessage(value);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {

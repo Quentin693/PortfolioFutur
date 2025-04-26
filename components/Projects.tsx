@@ -5,7 +5,6 @@ import { ChevronLeft, ChevronRight, X, Eye, Code, Layers, LayoutDashboard } from
 import Image from 'next/image';
 import { useTheme } from './ThemeProvider';
 import { useSoundEffect } from './SoundEffect';
-import BackButton from './BackButton';
 
 interface Project {
   id: number;
@@ -338,7 +337,7 @@ const projects: Project[] = [
     screenshots: [
       {
         url: "/Tiki.png",
-        caption: "Page d'accueil"
+        caption: "Page d&apos;accueil"
       },
       {
         url: "/Tiki1.png",
@@ -412,7 +411,7 @@ const projects: Project[] = [
     screenshots: [
       {
         url: "/portfolio.png",
-        caption: "Page d'accueil"
+        caption: "Page d&apos;accueil"
       }
     ]
   },

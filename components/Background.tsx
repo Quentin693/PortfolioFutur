@@ -26,8 +26,8 @@ const InteractiveBackground: React.FC = () => {
     height: typeof window !== 'undefined' ? window.innerHeight : 800
   });
   const [isMobile, setIsMobile] = useState(false);
-  const mousePosition = { x: 0, y: 0 };
-  const [isMouseMoving, setIsMouseMoving] = useState(false);
+  const [mousePosition] = useState({ x: 0, y: 0 });
+  const [isMouseMoving] = useState(false);
   
   
   // Configuration des particules
