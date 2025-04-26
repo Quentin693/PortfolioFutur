@@ -29,7 +29,7 @@ const About: React.FC = () => {
   const [animating, setAnimating] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const { playHover, playClick, playModal } = useSounds();
+  const {playClick, playModal } = useSounds();
 
   useEffect(() => {
     setIsVisible(true);
@@ -293,7 +293,6 @@ const About: React.FC = () => {
                   selectedItem?.id === item.id ? 'ring-1 ring-opacity-50 ring-offset-2 ring-offset-black' : ''
                 } ${selectedItem?.id === item.id ? (item.type === 'education' ? 'ring-neon-blue' : 'ring-neon-cyan') : ''} ${styles.futuristicElement}`}
                 onClick={() => handleCardClick(item)}
-                onMouseEnter={playHover}
               >
                 <div className="p-5">
                   <div className="flex justify-between items-start mb-3">
@@ -399,7 +398,6 @@ const About: React.FC = () => {
                           key={idx} 
                           className="relative group cursor-pointer border border-neon-blue/20 hover:border-neon-blue/50 rounded-md overflow-hidden transition-all duration-300 hover:shadow-neon-blue"
                           onClick={() => openFullscreenImage(image.src)}
-                          onMouseEnter={playHover}
                         >
                           <div className="aspect-video relative bg-black/50">
                             <Image 

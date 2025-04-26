@@ -15,7 +15,7 @@ const Contact: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
   const [isVisible, setIsVisible] = useState(false);
-  const { playHover, playModal } = useSounds();
+  const { playModal } = useSounds();
 
   useEffect(() => {
     setIsVisible(true);
@@ -75,7 +75,7 @@ const Contact: React.FC = () => {
               </h3>
               
               <div className="space-y-6">
-                <div className="flex items-center group" onMouseEnter={playHover}>
+                <div className="flex items-center group" >
                   <div className="bg-black/30 p-3 rounded-full mr-4 border border-neon-blue/30 shadow-neon-blue group-hover:shadow-neon-blue/80 transition-all">
                     <Mail size={20} className="text-neon-blue" />
                   </div>
@@ -85,7 +85,7 @@ const Contact: React.FC = () => {
                   </div>
                 </div>
                 
-                <div className="flex items-center group" onMouseEnter={playHover}>
+                <div className="flex items-center group" >
                   <div className="bg-black/30 p-3 rounded-full mr-4 border border-neon-blue/30 shadow-neon-blue group-hover:shadow-neon-blue/80 transition-all">
                     <Phone size={20} className="text-neon-blue" />
                   </div>
@@ -95,7 +95,7 @@ const Contact: React.FC = () => {
                   </div>
                 </div>
                 
-                <div className="flex items-center group" onMouseEnter={playHover}>
+                <div className="flex items-center group" >
                   <div className="bg-black/30 p-3 rounded-full mr-4 border border-neon-blue/30 shadow-neon-blue group-hover:shadow-neon-blue/80 transition-all">
                     <MapPin size={20} className="text-neon-blue" />
                   </div>
@@ -178,7 +178,6 @@ const Contact: React.FC = () => {
                     value={name}
                     onChange={handleChange}
                     onClick={(e) => e.stopPropagation()}
-                    onFocus={playHover}
                     className="w-full px-4 py-3 bg-black/30 border border-neon-blue/30 rounded-lg focus:outline-none focus:border-neon-blue focus:shadow-neon-blue transition-all cursor-text relative z-10 text-white placeholder-gray-500" 
                     required
                     autoComplete="name"
@@ -196,7 +195,6 @@ const Contact: React.FC = () => {
                     value={email}
                     onChange={handleChange}
                     onClick={(e) => e.stopPropagation()}
-                    onFocus={playHover}
                     className="w-full px-4 py-3 bg-black/30 border border-neon-blue/30 rounded-lg focus:outline-none focus:border-neon-blue focus:shadow-neon-blue transition-all cursor-text relative z-10 text-white placeholder-gray-500" 
                     required
                     autoComplete="email"
@@ -214,7 +212,6 @@ const Contact: React.FC = () => {
                   value={message}
                   onChange={handleChange}
                   onClick={(e) => e.stopPropagation()}
-                  onFocus={playHover}
                   rows={5}
                   className="w-full px-4 py-3 bg-black/30 border border-neon-blue/30 rounded-lg focus:outline-none focus:border-neon-blue focus:shadow-neon-blue transition-all cursor-text relative z-10 text-white placeholder-gray-500 resize-none" 
                   required

@@ -27,7 +27,7 @@ const SkillsComponent = () => {
   // État pour l'animation
   const [isVisible, setIsVisible] = useState(false);
   // Sons
-  const { playHover, playClick } = useSounds();
+  const { playClick } = useSounds();
   
   useEffect(() => {
     setIsVisible(true);
@@ -78,7 +78,6 @@ const SkillsComponent = () => {
             key={skill.name}
             className={`${styles.glassPanel} rounded-lg p-5 transition-all duration-300 transform hover:scale-105 hover:shadow-neon-blue ${styles.futuristicElement} animate-fade-in-up`}
             style={{ animationDelay: `${index * 100}ms` }}
-            onMouseEnter={playHover}
           >
             <div className="flex items-center mb-3">
               <div className="h-12 w-12 flex items-center justify-center mr-4 relative bg-black/30 rounded-lg overflow-hidden border border-neon-blue/20">

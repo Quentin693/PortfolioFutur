@@ -19,7 +19,7 @@ const EnhancedPortfolio = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   
   // Sons
-  const { playHoverButton, playClick } = useSounds();
+  const { playClick } = useSounds();
   
   // Références pour chaque section
   const homeRef = useRef<HTMLDivElement>(null);
@@ -236,7 +236,6 @@ const EnhancedPortfolio = () => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => scrollToSection(option.id)}
-            onMouseEnter={playHoverButton}
           >
             <div className="text-white">
               {option.icon}
@@ -307,7 +306,6 @@ const EnhancedPortfolio = () => {
               playClick();
               setShowOptions(!showOptions);
             }}
-            onMouseEnter={playHoverButton}
             whileHover={{ scale: 1.05 }}
           >
             {/* Cadre lumineux */}
@@ -384,7 +382,6 @@ const EnhancedPortfolio = () => {
                   }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => scrollToSection(section.id)}
-                  onMouseEnter={playHoverButton}
                 >
                   <div
                     className="w-full py-4 rounded-xl flex items-center justify-start px-6 shadow-lg transform transition-transform backdrop-blur-sm relative overflow-hidden group"
@@ -447,7 +444,6 @@ const EnhancedPortfolio = () => {
                   transition: { duration: 0.2 }
                 }}
                 onClick={() => scrollToSection(section.id)}
-                onMouseEnter={playHoverButton}
               >
                 <div
                   className="w-full h-full rounded-xl flex flex-col items-center justify-center shadow-lg transform transition-transform backdrop-blur-sm relative overflow-hidden group"
