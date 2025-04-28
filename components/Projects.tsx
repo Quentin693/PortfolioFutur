@@ -4,7 +4,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, X, Eye, Code, Layers, LayoutDashboard } from 'lucide-react';
 import Image from 'next/image';
 import { useTheme } from './ThemeProvider';
-import { useSoundEffect } from './SoundEffect';
+import { useSounds } from '../hooks/useSounds';
 
 interface Project {
   id: number;
@@ -40,7 +40,7 @@ interface LightboxProps {
 const Lightbox: React.FC<LightboxProps> = ({ screenshots, currentIndex, onClose, onNext, onPrev }) => {
   const { styles } = useTheme();
   const screenshot = screenshots[currentIndex];
-  const clickSound = useSoundEffect('click', 0.5);
+  const { playClick } = useSounds(0.3, 0.3, 0.5, 0.4);
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 backdrop-blur-md" onClick={onClose}>
@@ -64,7 +64,7 @@ const Lightbox: React.FC<LightboxProps> = ({ screenshots, currentIndex, onClose,
         <button 
           className="absolute top-2 right-2 md:top-4 md:right-4 bg-black/50 hover:bg-neon-blue/20 text-white p-2 md:p-3 rounded-full transition-colors z-[70] border border-neon-blue/30"
           onClick={() => {
-            clickSound.play();
+            playClick();
             onClose();
           }}
         >
@@ -79,7 +79,7 @@ const Lightbox: React.FC<LightboxProps> = ({ screenshots, currentIndex, onClose,
               className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-neon-blue/20 text-white p-2 md:p-3 rounded-full transition-colors border border-neon-blue/30"
               onClick={(e) => {
                 e.stopPropagation();
-                clickSound.play();
+                playClick();
                 onPrev();
               }}
             >
@@ -91,7 +91,7 @@ const Lightbox: React.FC<LightboxProps> = ({ screenshots, currentIndex, onClose,
               className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-neon-blue/20 text-white p-2 md:p-3 rounded-full transition-colors border border-neon-blue/30"
               onClick={(e) => {
                 e.stopPropagation();
-                clickSound.play();
+                playClick();
                 onNext();
               }}
             >
@@ -127,7 +127,7 @@ const ProjectSlider: React.FC<{
   openLightbox: (index: number, e: React.MouseEvent) => void;
 }> = ({ project, onClose, onNext, onPrev, isFirst, isLast, openLightbox }) => {
   const { styles } = useTheme();
-  const clickSound = useSoundEffect('click', 0.5);
+  const { playClick } = useSounds(0.3, 0.3, 0.5, 0.4);
   
   return (
     <div className={`${styles.glassPanel} w-full md:w-[900px] lg:w-[1000px] h-[90vh] md:h-[700px] overflow-hidden rounded-lg border border-neon-blue/40 shadow-neon-blue transition-all duration-500 ${styles.futuristicElement} flex flex-col holographic`}>
@@ -141,7 +141,7 @@ const ProjectSlider: React.FC<{
             className={`p-2 md:p-2.5 rounded-full border border-neon-blue/20 transition-colors ${isFirst ? 'text-gray-500 cursor-not-allowed' : 'text-neon-blue hover:bg-neon-blue/10 scanner-effect'}`}
             onClick={() => {
               if (!isFirst) {
-                clickSound.play();
+                playClick();
                 onPrev();
               }
             }}
@@ -154,7 +154,7 @@ const ProjectSlider: React.FC<{
             className={`p-2 md:p-2.5 rounded-full border border-neon-blue/20 transition-colors ${isLast ? 'text-gray-500 cursor-not-allowed' : 'text-neon-blue hover:bg-neon-blue/10 scanner-effect'}`}
             onClick={() => {
               if (!isLast) {
-                clickSound.play();
+                playClick();
                 onNext();
               }
             }}
@@ -166,7 +166,7 @@ const ProjectSlider: React.FC<{
           <button 
             className="p-2 md:p-2.5 rounded-full border border-neon-blue/20 text-neon-blue hover:bg-neon-blue/10 transition-colors ml-2 scanner-effect"
             onClick={() => {
-              clickSound.play();
+              playClick();
               onClose();
             }}
           >
@@ -277,7 +277,7 @@ const ProjectSlider: React.FC<{
                     key={idx} 
                     className="relative group cursor-pointer border border-neon-blue/20 hover:border-neon-blue/50 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-neon-blue hologram-projection float-effect"
                     onClick={(e) => {
-                      clickSound.play();
+                      playClick();
                       openLightbox(idx, e);
                     }}
                   >
@@ -440,8 +440,7 @@ const Projects: React.FC = () => {
   const [currentScreenshotIndex, setCurrentScreenshotIndex] = useState<number>(0);
   
   // Sons
-  const modalSound = useSoundEffect('modal', 0.4);
-  const clickSound = useSoundEffect('click', 0.5);
+  const { playModal, playClick } = useSounds(0.3, 0.3, 0.5, 0.4);
   
   useEffect(() => {
     setIsVisible(true);
@@ -449,67 +448,67 @@ const Projects: React.FC = () => {
   
   // Ouvrir le slider de détail du projet
   const openProjectDetails = (project: Project) => {
-    modalSound.play();
+    playModal();
     setSelectedProject(project);
     setSliderOpen(true);
   };
   
   // Fermer le slider de détail
   const closeProjectDetails = useCallback(() => {
-    clickSound.play();
+    playClick();
     setSliderOpen(false);
     setTimeout(() => {
       setSelectedProject(null);
     }, 500);
-  }, [clickSound]);
+  }, [playClick]);
 
   // Navigation entre les projets dans le slider
   const navigateToNextProject = useCallback(() => {
     if (selectedProject && selectedProject.id < projects.length) {
-      clickSound.play();
+      playClick();
       setSelectedProject(projects.find(p => p.id === selectedProject.id + 1) || null);
     }
-  }, [selectedProject, clickSound]);
+  }, [selectedProject, playClick]);
 
   const navigateToPrevProject = useCallback(() => {
     if (selectedProject && selectedProject.id > 1) {
-      clickSound.play();
+      playClick();
       setSelectedProject(projects.find(p => p.id === selectedProject.id - 1) || null);
     }
-  }, [selectedProject, clickSound]);
+  }, [selectedProject, playClick]);
 
   // Ouvrir la lightbox pour afficher une capture d'écran en plein écran
   const openLightbox = useCallback((index: number, e: React.MouseEvent) => {
     e.stopPropagation();
-    modalSound.play();
+    playModal();
     setCurrentScreenshotIndex(index);
     setLightboxOpen(true);
-  }, [modalSound]);
+  }, [playModal]);
 
   // Fermer la lightbox
   const closeLightbox = useCallback(() => {
-    clickSound.play();
+    playClick();
     setLightboxOpen(false);
-  }, [clickSound]);
+  }, [playClick]);
 
   // Navigation dans la lightbox
   const nextScreenshot = useCallback(() => {
     if (selectedProject?.screenshots) {
-      clickSound.play();
+      playClick();
       setCurrentScreenshotIndex((prevIndex) => 
         (prevIndex + 1) % selectedProject.screenshots!.length
       );
     }
-  }, [selectedProject, clickSound]);
+  }, [selectedProject, playClick]);
 
   const prevScreenshot = useCallback(() => {
     if (selectedProject?.screenshots) {
-      clickSound.play();
+      playClick();
       setCurrentScreenshotIndex((prevIndex) => 
         prevIndex === 0 ? selectedProject.screenshots!.length - 1 : prevIndex - 1
       );
     }
-  }, [selectedProject, clickSound]);
+  }, [selectedProject, playClick]);
 
   // Gestion des touches du clavier pour la navigation
   useEffect(() => {

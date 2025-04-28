@@ -1,16 +1,20 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Send, Phone, Mail, MapPin, Linkedin, Github, FileText } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
 import { useSounds } from '../hooks/useSounds';
 import SoundButton from './SoundButton';
 import SoundLink from './SoundLink';
+import emailjs from '@emailjs/browser';
+import { initEmailJS } from '../utils/emailjs';
 
 const Contact: React.FC = () => {
   const { styles } = useTheme();
+  const formRef = useRef<HTMLFormElement>(null);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
@@ -19,15 +23,22 @@ const Contact: React.FC = () => {
 
   useEffect(() => {
     setIsVisible(true);
+    
+    // Initialiser EmailJS
+    if (typeof window !== 'undefined') {
+      initEmailJS();
+    }
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name: fieldName, value } = e.target;
     
-    if (fieldName === 'name') {
+    if (fieldName === 'from_name') {
       setName(value);
-    } else if (fieldName === 'email') {
+    } else if (fieldName === 'reply_to') {
       setEmail(value);
+    } else if (fieldName === 'subject') {
+      setSubject(value);
     } else if (fieldName === 'message') {
       setMessage(value);
     }
@@ -35,23 +46,31 @@ const Contact: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    playModal(); // Jouer un son lors de la soumission
+    playModal();
     setSubmitted(true);
     setError('');
     
-    // Simuler un envoi de formulaire
+    if (!formRef.current) return;
+    
     try {
-      // En production, remplacez par votre logique d'envoi de formulaire
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Utiliser les identifiants EmailJS
+      const response = await emailjs.sendForm(
+        'service_u9tg3i7', // Service ID
+        'template_w96gc7k', // Template ID
+        formRef.current,
+        'gqW9Mpq_cBBEtVQH_' // Votre clé publique (USER_ID)
+      );
       
-      // Simulation d'une réponse réussie
+      console.log('Email envoyé avec succès!', response.text);
       setError("Votre message a été envoyé avec succès!");
       
       // Réinitialiser le formulaire après un envoi réussi
       setName('');
       setEmail('');
+      setSubject('');
       setMessage('');
-    } catch {
+    } catch (err) {
+      console.error('Erreur lors de l\'envoi de l\'email:', err);
       setError("Une erreur s'est produite lors de l'envoi du message.");
     } finally {
       setSubmitted(false);
@@ -139,7 +158,7 @@ const Contact: React.FC = () => {
                 </SoundLink>
                 
                 <SoundLink 
-                  href="/CV_Cialone_Quentin.pdf" 
+                  href="/Quentin_CV.pdf" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="bg-neon-blue/20 p-3 rounded-full border border-neon-blue/50 hover:border-neon-blue transition-all cursor-pointer shadow-neon-blue hover:shadow-neon-blue/80 group transform hover:scale-110"
@@ -165,7 +184,7 @@ const Contact: React.FC = () => {
               <span className="absolute bottom-0 left-0 w-3/4 h-0.5 bg-neon-blue/50 rounded"></span>
             </h3>
             
-            <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-5 relative z-10">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium mb-1 ml-1 text-gray-300">
@@ -174,7 +193,7 @@ const Contact: React.FC = () => {
                   <input 
                     type="text" 
                     id="name"
-                    name="name"
+                    name="from_name"
                     value={name}
                     onChange={handleChange}
                     onClick={(e) => e.stopPropagation()}
@@ -191,7 +210,7 @@ const Contact: React.FC = () => {
                   <input 
                     type="email" 
                     id="email"
-                    name="email"
+                    name="reply_to"
                     value={email}
                     onChange={handleChange}
                     onClick={(e) => e.stopPropagation()}
@@ -200,6 +219,22 @@ const Contact: React.FC = () => {
                     autoComplete="email"
                   />
                 </div>
+              </div>
+              
+              <div>
+                <label htmlFor="subject" className="block text-sm font-medium mb-1 ml-1 text-gray-300">
+                  Sujet
+                </label>
+                <input 
+                  type="text" 
+                  id="subject"
+                  name="subject"
+                  value={subject}
+                  onChange={handleChange}
+                  onClick={(e) => e.stopPropagation()}
+                  className="w-full px-4 py-3 bg-black/30 border border-neon-blue/30 rounded-lg focus:outline-none focus:border-neon-blue focus:shadow-neon-blue transition-all cursor-text relative z-10 text-white placeholder-gray-500" 
+                  required
+                />
               </div>
               
               <div>
@@ -224,6 +259,9 @@ const Contact: React.FC = () => {
                     {error}
                   </div>
                 )}
+                
+                {/* Champ caché pour envoyer une copie à l'expéditeur */}
+                <input type="hidden" name="to_email" value={email} />
                 
                 <SoundButton
                   type="submit"

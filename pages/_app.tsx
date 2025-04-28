@@ -3,6 +3,7 @@ import '../styles/globals.css'  // Importez votre CSS global ici
 import Head from 'next/head'
 import { Inter, Orbitron } from 'next/font/google'
 import { ThemeProvider } from '../components/ThemeProvider'
+import { SoundProvider } from '../hooks/useSounds'
 
 // Police futuriste pour les titres
 const orbitron = Orbitron({ 
@@ -26,9 +27,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ThemeProvider>
-        <main className={`${inter.variable} ${orbitron.variable} font-sans`}>
-          <Component {...pageProps} />
-        </main>
+        <SoundProvider>
+          <main className={`${inter.variable} ${orbitron.variable} font-sans`}>
+            <Component {...pageProps} />
+          </main>
+        </SoundProvider>
       </ThemeProvider>
     </>
   )

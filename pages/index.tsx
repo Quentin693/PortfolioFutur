@@ -10,6 +10,7 @@ import SkillsComponent from '../components/Skills';
 import Projects from '../components/Projects';
 import InteractiveBackground from '../components/Background';
 import { useSounds } from '../hooks/useSounds';
+import MuteButton from '../components/MuteButton';
 
 const EnhancedPortfolio = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -29,11 +30,11 @@ const EnhancedPortfolio = () => {
   const contactRef = useRef<HTMLDivElement>(null);
   
   const [texts] = useState([
-    "Salut, je suis Quentin Cialone",
+    "Bonjour, je suis Quentin Cialone",
     "Je suis né le 22 Juin 2003",
     "Développeur Web Fullstack",
     "Passionné de nouvelles technologies",
-    "Je cherche une alternance pour Septembre 2025",
+    "Je cherche une alternance pour Septembre 2025 sur Lyon",
   ]);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [typedText, setTypedText] = useState('');
@@ -224,6 +225,11 @@ const EnhancedPortfolio = () => {
       {/* Effet de reflet */}
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-blue-500/5 to-purple-500/5 mix-blend-overlay" />
       
+      {/* Bouton Mute en haut à gauche */}
+      <div className="fixed top-5 left-5 z-50">
+        <MuteButton />
+      </div>
+      
       {/* Navigation fixe */}
       <div className="fixed top-4 right-4 z-50 flex flex-col gap-2 sm:gap-3">
         {navOptions.map((option) => (
@@ -252,12 +258,12 @@ const EnhancedPortfolio = () => {
       {/* Section d'accueil */}
       <section id="home" ref={homeRef} className="min-h-screen w-full flex flex-col relative pb-8">
         {/* Header */}
-        <header className="relative z-10 w-full py-4 md:py-6 flex flex-col items-center">
+        <header className="relative z-10 w-full pt-12 pb-4 md:py-6 flex flex-col items-center">
           <motion.h1 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-2xl sm:text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-600"
+            className="text-xl sm:text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-600"
           >
             Mon Portfolio
           </motion.h1>
@@ -265,7 +271,7 @@ const EnhancedPortfolio = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="title-futuristic text-4xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-neon-blue via-neon-cyan to-neon-blue animate-glow"
+            className="title-futuristic text-2xl xs:text-3xl md:text-4xl font-bold mb-4 md:mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-neon-blue via-neon-cyan to-neon-blue animate-glow px-4 mt-2 md:mt-4 mx-auto max-w-[95%] md:max-w-full"
           >
             <span>{typedText}</span>
             <span className={`${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity`}>|</span>

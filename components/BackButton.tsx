@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { X } from 'lucide-react';
-import { useSoundEffect } from './SoundEffect';
+import { useSounds } from '../hooks/useSounds';
 
 interface BackButtonProps {
   onClick: () => void;
@@ -10,10 +10,10 @@ interface BackButtonProps {
 }
 
 const BackButton: React.FC<BackButtonProps> = ({ onClick, className = '' }) => {
-  const clickSound = useSoundEffect('click', 0.5);
+  const { playClick } = useSounds();
   
   const handleClick = () => {
-    clickSound.play();
+    playClick();
     onClick();
   };
 

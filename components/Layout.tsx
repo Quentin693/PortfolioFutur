@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { useSoundEffect } from './SoundEffect';
+import { useSounds } from '../hooks/useSounds';
 
 // Component permettant de faire une transition entre les pages
 const PageTransition = ({ children, isVisible }: { children: React.ReactNode, isVisible: boolean }) => {
@@ -16,13 +16,13 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const [isVisible, setIsVisible] = useState(false);
   
   // Jouer un son lors du chargement de la page
-  const pageLoadSound = useSoundEffect('modal', 0.3);
+  const { playModal } = useSounds(0.3, 0.3, 0.5, 0.3);
   
   useEffect(() => {
     // Déclencher l'animation après le chargement
     setIsVisible(true);
-    pageLoadSound.play();
-  }, [pageLoadSound]);
+    playModal();
+  }, [playModal]);
   
   return (
     <PageTransition isVisible={isVisible}>
