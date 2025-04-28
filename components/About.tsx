@@ -168,6 +168,19 @@ const About: React.FC = () => {
         }
       ]
     },
+    {
+      id: 7,
+      title: "Responsable de salle",
+      subtitle: "Tiki Au bord de l'eau",
+      period: "Juin 2020 - Aujourd'hui",
+      location: "Decines, France",
+      description: "Gestion d'une équipe, chef de rang, relation client",
+      type: "experience",
+      details: [
+        "Organisation et gestion des services",
+        "Gestion des commandes internes",
+      ],
+    },
   ];
 
   // Fonction pour afficher l'icône appropriée selon le type d'élément
